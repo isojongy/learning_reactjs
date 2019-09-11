@@ -389,7 +389,7 @@ class App extends React.Component{
 	constructor(){
 		super();
 		this.state = {
-			input: '/* Add your jsx here */',
+			input: '/*Add your jsx here*/',
 			output: '',
 			err: '',	
 		};
@@ -402,6 +402,7 @@ class App extends React.Component{
 					presets: [
 					'es2015', 'react'
 				]}).code,
+				err: ''
 			});
 		} 
 		catch (err) {
@@ -426,6 +427,27 @@ class App extends React.Component{
 		)
 	}
 }
+
+/*jsx*/
+/*const App = (props) => {
+	var myStyle = {
+	 backgroundColor: '#000',
+	 height: 10
+	}
+   
+   return (
+   <div style={myStyle}>
+	 <a href="#"
+   ontrendered="x"
+   onClick={update}>
+   { this is a comment }
+   this is a text
+   {i > 1 ? 'more than one': 'one'}
+   {i > 1 && 'more than one'}
+	 </a>
+   </div>
+   )
+}*/
 
 export default App
 
