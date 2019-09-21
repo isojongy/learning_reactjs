@@ -15,5 +15,19 @@ module.exports = {
 		    	console.log("Saved the user sign up details.");
 			});
 		});
-    }
+	},
+	
+	validateLogin: function(username, password, callback) {
+	    MongoClient.connect(url, (error, client) => {
+	    	const db = client.db('Blog');
+	        db.collection('user').findOne( { email : username ,password: password}, function (err, result) {
+	            if(result==null){
+	                callback(false)
+	            }
+	            else{
+	                callback(true)
+	            }
+	        });
+	    });
+	}
 }

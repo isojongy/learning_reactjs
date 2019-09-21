@@ -2,7 +2,6 @@ class Login extends React.Component {
     constructor(props) {
       super(props);
       this.login = this.login.bind(this);
-      this.handleNameChange = this.handleNameChange.bind(this);
       this.handleEmailChange = this.handleEmailChange.bind(this);
       this.handlePasswordChange = this.handlePasswordChange.bind(this);
       this.state = {
@@ -11,9 +10,6 @@ class Login extends React.Component {
         password: ''
       };
     }
-    handleNameChange(e){
-      this.setState({name:e.target.value})
-  }
     handleEmailChange(e){
       this.setState({email:e.target.value})
     }
@@ -21,28 +17,29 @@ class Login extends React.Component {
       this.setState({password:e.target.value})
     }
   login() {
-        console.log('Email address is ' + this.state.email + ' Password is ' + this.state.password);     
-      axios.post('/login', {
-          name: this.state.name,
-          email: this.state.email,
-          password: this.state.password
-        })
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });       
+    axios.post('/login', {
+      email: this.state.email,
+      password: this.state.password
+    })
+      .then(function (response) {
+        console.log(response);
+      if(response.data == 'success'){
+        window.location.assign('http://localhost:3000/home')
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    }); 
   }
   
     render() {
         return (
             <form className="form-login">
             <h2 className="form-login-heading">Đăng nhập</h2>
-            <label for="inputEmail" className="sr-only">Nhập tên</label>
+            <label for="inputEmail" className="sr-only">Nhập email</label>
                 <input type="email" onChange={this.handleEmailChange} id="inputEmail" className="form-control" placeholder="Email*" required autofocus />
                 <label for="inputPassword" className="sr-only">Mật khẩu</label>
-                <input type="password" onChange={this.handlePaswordChange} id="inputPassword" className="form-control" placeholder="Mật khẩu*" required />
+                <input type="password" onChange={this.handlePasswordChange} id="inputPassword" className="form-control" placeholder="Mật khẩu*" required />
                 <button className="btn btn-lg btn-primary btn-block" type="button" onClick={this.login}>Đăng nhập
                 </button>
             </form>
@@ -69,7 +66,8 @@ class Register  extends React.Component {
   handleEmailChange(e){
     this.setState({email:e.target.value})
   }
-  handlePasswordChange(e){
+  handlePasswordChange(e) {
+    console.log(e);
     this.setState({password:e.target.value})
   }
   register() {
