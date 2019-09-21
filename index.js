@@ -14,7 +14,8 @@ app.use(bodyParser.json());
 
 app.use(session({secret: 'my-secret'}));
 
-var user = require('./user');
+var user = require('./model/user');
+var post = require('./model/post');
 
 app.post('/login', function (req, res) {
   sessions = req.session;
@@ -46,10 +47,19 @@ app.post('/login', function (req, res) {
   });
   
 app.get('/home', function (req, res) {
+  sessions = req.session;
   if (sessions && sessions.username) {
     res.sendFile(__dirname + '/view/home.html');
   }
   else {
     res.send('unauthorized');
   }
+});
+
+app.post('/add-post', function (req, res) {
+  var title = req.body.title;
+  var subject = req.body.subject;
+  post.addPost(title, subject, function (result) {
+    res.send(result);
+  });
 });

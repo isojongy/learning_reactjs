@@ -34,15 +34,20 @@ class Login extends React.Component {
   
     render() {
         return (
+          <div>
             <form className="form-login">
-            <h2 className="form-login-heading">Đăng nhập</h2>
-            <label for="inputEmail" className="sr-only">Nhập email</label>
-                <input type="email" onChange={this.handleEmailChange} id="inputEmail" className="form-control" placeholder="Email*" required autofocus />
-                <label for="inputPassword" className="sr-only">Mật khẩu</label>
-                <input type="password" onChange={this.handlePasswordChange} id="inputPassword" className="form-control" placeholder="Mật khẩu*" required />
-                <button className="btn btn-lg btn-primary btn-block" type="button" onClick={this.login}>Đăng nhập
-                </button>
+              <h2 className="form-login-heading">Đăng nhập</h2>
+              <label for="inputEmail" className="sr-only">Nhập email</label>
+                  <input type="email" onChange={this.handleEmailChange} id="inputEmail" className="form-control" placeholder="Email*" required autofocus />
+                  <label for="inputPassword" className="sr-only">Mật khẩu</label>
+                  <input type="password" onChange={this.handlePasswordChange} id="inputPassword" className="form-control" placeholder="Mật khẩu*" required />
+                  <button className="btn btn-lg btn-primary btn-block" type="button" onClick={this.login}>Đăng nhập
+                  </button>
             </form>
+            <div>
+                <Link to="/register">{'Đăng ký'}</Link>
+              </div>
+            </div>
         );
     }
 }
