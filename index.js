@@ -5,8 +5,8 @@ var session = require('express-session');
 var app = express();
 app.use(express.static(path.join(__dirname, './view')));
 
-app.listen(3000, function() {
-	console.log('started listen port', 3000);
+app.listen(3001, function() {
+	console.log('started listen port', 3001);
 });
 
 var bodyParser = require("body-parser");
@@ -48,18 +48,46 @@ app.post('/login', function (req, res) {
   
 app.get('/home', function (req, res) {
   sessions = req.session;
-  if (sessions && sessions.username) {
+  // if (sessions && sessions.username) {
     res.sendFile(__dirname + '/view/home.html');
-  }
+  // }
+  // else {
+  //   res.send('unauthorized');
+  // }
+});
+
+app.post('/addpost', function (req, res) {
+  var title = req.body.title;
+  var subject = req.body.subject;
+  var id = req.body.id;
+  if (id == '' || id == undefined){
+    post.addPost(title, subject, function (result) {
+      res.send(result);
+    });
+}
   else {
-    res.send('unauthorized');
+    post.updatePost(id, title, subject, function (result) {
+      res.send(result);
+    });
   }
 });
 
-app.post('/add-post', function (req, res) {
-  var title = req.body.title;
-  var subject = req.body.subject;
-  post.addPost(title, subject, function (result) {
-    res.send(result);
-  });
+app.post('/getPostWithId', function (req, res) {
+  var id = req.body.id;
+  post.getPostWithId(id, function (result) {
+    res.send(result)
+  })
+});
+
+app.get('/get-post-list', function (req, res) {
+  post.getPostList(function (result) {
+    res.send(result)
+  })
+});
+
+app.post('/deletePost', function (req, res) {
+  var id = req.body.id;
+  post.deletePost(id, function (result) {
+    res.send(result)
+  })
 });

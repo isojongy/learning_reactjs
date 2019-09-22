@@ -24,7 +24,7 @@ class Login extends React.Component {
       .then(function (response) {
         console.log(response);
       if(response.data == 'success'){
-        window.location.assign('http://localhost:3000/home')
+        window.location.assign('http://localhost:3001/home')
       }
     })
     .catch(function (error) {
